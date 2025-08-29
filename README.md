@@ -1,36 +1,102 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# Proyecto: Aplicación Móvil con React Native
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Este proyecto consiste en la creación de una aplicación móvil utilizando
+**React Native**, con el objetivo de generar un archivo **APK** que
+pueda instalarse en un emulador de Android para pruebas y validaciones.
 
-## Step 1: Start Metro
+## Requisitos Previos
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+Asegúrate de tener instaladas las siguientes herramientas en tu entorno
+de desarrollo:
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+-   **Node.js** (versión recomendada: 20.x)
+-   **npm** o **yarn** (gestores de dependencias)
+-   **Java JDK** (versión 17.0.16)
+-   **Gradle** (compatible con la versión instalada del JDK, en este
+    caso 8.x)
+-   **Android Studio** con las siguientes configuraciones:
+    -   SDK Manager con la versión de Android necesaria.
+    -   Emulador configurado para ejecutar la aplicación.
+    -   Herramientas de compilación actualizadas.
+-   **Kotlin** configurado en el proyecto (usando versión 1.8.22 o superior, según la compatibilidad de librerías).
+## Instalación de Dependencias
 
-```sh
-# Using npm
-npm start
+Ejecuta el siguiente comando en la raíz del proyecto para instalar las
+dependencias necesarias:
 
-# OR using Yarn
-yarn start
+``` bash
+npm install
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+# Dependencias clave instaladas manualmente:
+```bash
+npm install react-native-vision-camera
+npm install react-native-reanimated@^3.10.0
+npm install @react-native-camera-roll/camera-roll@^7.10.2
+npm install react-native-worklets
 ```
+Además, para poder usar los comandos de la CLI de React Native:
+```bash
+# agregar en package.json:
+"devDependencies": {
+  "@react-native-community/cli": "latest"
+}
+
+## Limpieza y Preparación del Proyecto
+
+En caso de errores con Gradle o la compilación, es recomendable limpiar
+la caché y reconstruir el proyecto:
+
+``` bash
+cd android
+gradlew clean
+cd ..
+```
+### Configuración de Permisos en Android
+En el archivo android/app/src/main/AndroidManifest.xml, se añaden los permisos necesarios para acceder a la cámara y al almacenamiento:
+
+```bash
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
+```
+
+### Limpieza y Preparación del Proyecto
+
+En caso de errores con Gradle o la compilación, es recomendable limpiar
+la caché y reconstruir el proyecto:
+```bash
+cd android
+gradlew clean
+cd ..
+```
+También puede ser necesario limpiar cachés de Metro/React Native:
+```bash
+npx react-native start --reset-cache
+```
+
+### Construcción del APK
+Para generar el APK de desarrollo, utiliza:
+```bash
+cd android
+gradlew.bat assembleDebug
+```
+Para verificar revisa el archivo generado en:
+```bash
+android/app/build/outputs/apk/debug/app-debug.apk
+```
+### Ejecución en el Emulador
+Para ejecutar la aplicación directamente en el emulador, utiliza:
+
+```bash
+npx react-native run-android
+```
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Errores y Soluciones – Proyecto React Native + Android Emulator
 
@@ -48,7 +114,7 @@ Task :react-native-vision-camera:compileDebugKotlin FAILED
 
 ```sh
 npm i react-native-worklets
-```
+``` 
 
 ### Dependencia en Reanimated
 ```sh
@@ -75,6 +141,54 @@ react-native depends on @react-native-community/cli for cli commands.
   "@react-native-community/cli": "latest"
 }
 ```
+### Configuración de Permisos en Android
+En el archivo android/app/src/main/AndroidManifest.xml, se añaden los permisos necesarios para acceder a la cámara y al almacenamiento:
+
+```bash
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
+```
+
+### Limpieza y Preparación del Proyecto
+
+En caso de errores con Gradle o la compilación, es recomendable limpiar
+la caché y reconstruir el proyecto:
+```bash
+cd android
+gradlew clean
+cd ..
+```
+También puede ser necesario limpiar cachés de Metro/React Native:
+```bash
+npx react-native start --reset-cache
+```
+
+### Construcción del APK
+Para generar el APK de desarrollo, utiliza:
+```bash
+cd android
+gradlew.bat assembleDebug
+```
+Para verificar, El archivo generado estará en:
+```bash
+android/app/build/outputs/apk/debug/app-debug.apk
+```
+### Ejecución en el Emulador
+Para ejecutar la aplicación directamente en el emulador, utiliza:
+
+```bash
+npx react-native run-android
+```
+
+
+
+
+
+
 
 ### SDK / NDK 
 **Causa:** Varias versiones de NDK instaladas en:
